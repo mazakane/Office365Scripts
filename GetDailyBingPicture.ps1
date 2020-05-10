@@ -3,6 +3,9 @@
 # Automate and download the daily Bing image 
 # to the user´s Teams background folder
 # Martina Grom, @magrom, atwork.at
+# Edited by @mazakane due to missing parameter (-UseBasicParsing) while Invoke-WebRequest.
+# The issue was that Invoke-Webrequest throwed following error:
+#   The response content cannot be parsed because the Internet Explorer engine is not available, or Internet Explorer's first-launch configuration is not complete.
 #---------------------------------------------
 
 # Use the Bing.com API. 
@@ -12,7 +15,7 @@
 $uri = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US"
 
 # Get the picture metadata
-$response = Invoke-WebRequest -Method Get -Uri $uri
+$response = Invoke-WebRequest -Method Get -Uri $uri -UseBasicParsing
 
 # Extract the image content
 $body = ConvertFrom-Json -InputObject $response.Content
